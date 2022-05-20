@@ -3,14 +3,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ContactModule } from './contact/contact.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     ContactModule,
     MongooseModule.forRoot(
-      'mongodb+srv://adoPg:3vJUWn4ntcW6N8fz@main.ir5pn.mongodb.net/?retryWrites=true&w=majority',
+      `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER}.ir5pn.mongodb.net/?retryWrites=true&w=majority`,
       {
-        dbName: 'agenda',
+        dbName: process.env.MONGODB_DB_NAME,
       },
     ),
   ],
