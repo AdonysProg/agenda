@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Container from './components/atoms/Container';
+import Title from './components/atoms/Title';
+import Table from './components/molecules/Table';
+import { deleteContact } from './queries/deleteContact';
+import { getContacts } from './queries/getContacts';
+import CreateForm from './components/organisms/CreateForm';
+import { Contact } from './utils/contact.dto';
 
 function App() {
+  const [data, setData] = React.useState([]);
+
+  const fetchData = async () => {
+    const result = await getContacts();
+    setData(result);
+  };
+
+  const deleteData = (email: string) => {
+    deleteContact(email).then(() => fetchData());
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Title text="How to overkill an Agenda" />
+      <Container>
+        <CreateForm refetchOnSuccess={fetchData} />
+        <Table data={data} deleteContact={deleteData} />
+      </Container>
+    </>
   );
 }
 
