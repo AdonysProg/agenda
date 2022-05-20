@@ -5,7 +5,6 @@ import Table from './components/molecules/Table';
 import { deleteContact } from './queries/deleteContact';
 import { getContacts } from './queries/getContacts';
 import CreateForm from './components/organisms/CreateForm';
-import { Contact } from './utils/contact.dto';
 
 function App() {
   const [data, setData] = React.useState([]);

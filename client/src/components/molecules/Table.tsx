@@ -15,6 +15,7 @@ const TableStyled = styled.table`
 `;
 
 interface Contact {
+  contactId: string;
   _id: string;
   firstName: string;
   lastName: string;
@@ -32,6 +33,7 @@ const Table: React.FC<Props> = ({ data, deleteContact }) => {
     <TableStyled typeof="striped">
       <thead>
         <tr>
+          <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Phone Number</th>
@@ -43,6 +45,7 @@ const Table: React.FC<Props> = ({ data, deleteContact }) => {
         {data.map((contact: Contact) => {
           return (
             <tr key={contact._id}>
+              <td>{contact.contactId}</td>
               <td>{contact.firstName}</td>
               <td>{contact.lastName}</td>
               <td>{contact.phoneNumber}</td>
